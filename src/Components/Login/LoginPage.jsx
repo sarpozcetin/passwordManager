@@ -15,23 +15,21 @@ const LoginPage = () => {
     }
 
     return (
-        <div className='wrapper'>
+        <div className='login-wrapper'>
             <form action="">
                 <h1>Login</h1>
                 <div className="input-box">
-                    <input type="text" placeholder='Username' required/>
+                    <input type="text" id='username' required/>
+                    <label htmlFor="username">Username</label>
                     <FaUser className='icon'/>
                 </div>
                 <div className="input-box">
-                    <input type={passwordVisible ? "text" : 'password'} placeholder='Password' required/>
+                    <input type={passwordVisible ? "text" : 'password'} id='password' required/>
+                    <label htmlFor="password">Password</label>
                     {passwordVisible ? (<FiEyeOff className='icon' onClick={togglePasswordVisbility} />) :
                     <FiEye className='icon' onClick={togglePasswordVisbility} />}
                 </div>
 
-                <div className="remember-forgot">
-                    <label><input type='checkbox' />Remember Me</label>
-                    <a href="#">Forgot password?</a>
-                </div>
                 <button type='submit'>Login</button>
 
                 <div className='register-link'>

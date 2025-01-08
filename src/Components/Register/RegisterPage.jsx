@@ -18,25 +18,28 @@ const RegisterPage = () => {
     }
 
     return (
-        <div className='wrapper'>
+        <div className='register-wrapper'>
             <form action="">
-                <h1>Register</h1>
+                <h1>Sign Up</h1>
                 <div className="input-box">
-                    <input type="text" placeholder='Username' required />
+                    <input type="text" id='username'required />
+                    <label htmlFor='username'>Username</label>
                     <FaUser className='icon' />
                 </div>
                 
                 <div className="input-box">
-                <input type={passwordVisible ? "text" : 'password'} placeholder='Password' required/>
+                    <input type={passwordVisible ? "text" : 'password'} id='password' required/>
+                    <label htmlFor="password">Password</label>
                     {passwordVisible ? (<FiEyeOff className='icon' onClick={togglePasswordVisbility} />) :
                     <FiEye className='icon' onClick={togglePasswordVisbility} />}
                 </div>
                 <div className="input-box">
-                <input type={confirmPasswordVisible ? "text" : 'password'} placeholder='Confirm Password' required/>
+                    <input type={passwordVisible ? "text" : 'password'} id='confirmpassword' required/>
+                    <label htmlFor="confirmpassword">Confirm Password</label>
                     {confirmPasswordVisible ? (<FiEyeOff className='icon' onClick={toggleConfirmPasswordVisbility} />) :
                     <FiEye className='icon' onClick={toggleConfirmPasswordVisbility} />}
                 </div>
-                <button type='submit'>Register</button>
+                <button type='submit'>Sign Up</button>
 
                 <div className='register-link'>
                     <p>Already have an account? <a href='/login'>Login</a></p>
