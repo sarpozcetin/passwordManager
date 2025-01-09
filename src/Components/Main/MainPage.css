@@ -5,7 +5,7 @@
     justify-content: center;
     height: 100vh;
 }
-  
+
 .box-container {
     position: relative;
     width: 1000px;
@@ -14,7 +14,7 @@
     margin: 20px 0;
   }
   
-.box {
+.box{
     position: absolute;
     width: 100%;
     height: 100%;
@@ -25,28 +25,27 @@
     opacity: 0;
     transition: opacity 0.5s ease, transform 0.5s ease;
 }
-  
-.encrypt-box {
+
+/*Encrypt box styles*/
+.encrypt {
     background: transparent;
     border: 2px solid rgba(0, 0, 0, .2);
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(30px);  
+    backdrop-filter: blur(30px);
+    align-items: center;
+    flex-direction: column;
 }
 
-.encrypt-box input {
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    border: none;
-    outline: none;
-    border: 2px solid rgba(0, 0, 0, .2);
-    border-radius: 40px;
-    font-size: 16px;
-    color: #000;
+.encrypt .input-box {
+    position: relative;
+    width: 50%;
+    margin: 30px 0;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.6);
+    padding-bottom: 15px;
 }
 
-.encrypt-box button {
+.encrypt button {
     padding: 10px 20px;
     font-size: 16px;
     border: 1px solid #000;
@@ -62,27 +61,83 @@
     cursor: pointer;
     transition: background-color 0.3s;
 }
-  
-.decrypt-box {
+
+/*Decrypt box styles*/
+.decrypt {
     background: transparent;
     border: 2px solid rgba(0, 0, 0, .2);
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(30px);
+    align-items: center;
+    flex-direction: column;
 }
-  
 
-.visible {
-    opacity: 1;
-    transform: translateX(0); 
+.decrypt .input-box {
+    position: relative;
+    width: 50%;
+    margin: 30px 0;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.6);
+    padding-bottom: 15px;
 }
-  
-.hidden {
-    opacity: 0;
-    transform: translateX(100%); 
-}
-  
 
+.decrypt button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 1px solid #000;
+    background: #3d3d3d;
+    opacity: 70%;
+    color: rgb(255, 255, 255);
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+
+/*Styles for input box */
+.input-box label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    color: #000;
+    font-size: 1rem;
+    pointer-events: none;
+    transition: all 0.5s ease-in-out;
+    padding-bottom: 15px;
+}
+
+input:focus ~ label,
+input:valid ~ label {
+    top: -30px;
+    font-size: 0.85rem;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #000;
+}
+
+.input-box .icon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/*Styles for buttons*/
 .toggle-button {
     padding: 10px 20px;
     font-size: 16px;
@@ -103,4 +158,15 @@
 .toggle-button:hover {
     background-color: #000000;
 }
+
+.visible {
+    opacity: 1;
+    transform: translateX(0); 
+}
   
+.hidden {
+    opacity: 0;
+    transform: translateX(100%); 
+}
+  
+
