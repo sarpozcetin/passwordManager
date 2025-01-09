@@ -3,9 +3,11 @@ import './MainPage.css';
 import { FaUser } from "react-icons/fa";
 import { FiEye } from "react-icons/fi";
 import { FiEyeOff } from "react-icons/fi";
+import { useNavigate } from 'react-router-dom';
 
 const MainPage = () => {
     const [isEncrypt, setIsEncrypt] = useState(true);
+    const navigate = useNavigate();
     const [passwordVisibleEncrypt, setPasswordVisibleEncrypt] = useState(false);
     const [passwordVisibleDecrypt, setPasswordVisibleDecrypt] = useState(false);
     const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
@@ -25,6 +27,9 @@ const MainPage = () => {
     const toggleConfirmPasswordVisbility = () => {
         setConfirmPasswordVisible(!confirmPasswordVisible);
     }
+    const handleSignOut = () => {
+      navigate('/login');
+    };
 
   return (
     <div className="main-container">
@@ -70,6 +75,7 @@ const MainPage = () => {
       <button onClick={handleToggle} className="toggle-button">
         {isEncrypt ? 'Switch to Decrypt' : 'Switch to Encrypt'}
       </button>
+      <button onClick={handleSignOut}className="toggle-button">Sign Out</button>
     </div>
   );
 };
