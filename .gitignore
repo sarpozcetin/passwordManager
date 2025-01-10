@@ -6,7 +6,7 @@
 .pnp.js
 
 #Python cache
-/backend/__pychache__/
+/backend/__pycache__/
 
 #Virtual environments
 /backend/venv/
