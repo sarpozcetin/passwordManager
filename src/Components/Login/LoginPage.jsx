@@ -18,7 +18,7 @@ const LoginPage = () => {
             const response = await axios.post('http://127.0.0.1:5000/auth/login', {
                 username,
                 password
-            });
+            },{withCredentials: true});
 
             if (response.status === 200) {
                 navigate('/main');  // Redirect to main page on successful login

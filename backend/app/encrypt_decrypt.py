@@ -20,7 +20,9 @@ def createKey(pw: str, salt: bytes) -> bytes:
                      iterations=100000,
                      backend=default_backend)
     
-    return base64.urlsafe_b64encode(kdf.derive(pw.encode()))
+    derived_key = base64.urlsafe_b64encode(kdf.derive(pw.encode()))
+    print(f"derived key {derived_key}")
+    return derived_key
 
 def encrypt(password: str, key: bytes) -> bytes:
     fernet = Fernet(key)
@@ -36,7 +38,10 @@ def decrypt(encrypted: bytes, key: bytes) -> str:
 def encrypt_route():
     from server import mongo
     data = request.get_json()
+    print(f"session at encrypt {session}" )
+
     print(data)
+    print("Session key:", session.get('key'))
     username = data.get('username')
     password = data.get('password')
     account = data.get('account')

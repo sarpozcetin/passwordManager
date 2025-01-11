@@ -23,10 +23,12 @@ def register_route():
         return jsonify({'error': 'Username already taken. Please choose another.'}), 400
 
     salt = os.urandom(16)
+    print(f"generated salt {salt}")
 
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-
+    print(f"hashed password {hashed_password}")
     key = createKey(password, salt)
+    print(f"session key (registration) {key}")
 
     mongo.db.users.insert_one({
         'username': username,
@@ -35,6 +37,7 @@ def register_route():
     })
 
     session['key'] = key
+    print(f"session after register {session}" )
 
     return jsonify({'message': 'User registered successfully'}), 201
 
@@ -45,6 +48,9 @@ def login_route():
     data = request.get_json()
     username = data.get('username')
     password = data.get('password')
+
+    if 'key' not in session:
+        return jsonify({'error': 'No key found in session'}), 400
 
     if not username or not password:
         return jsonify({'error': 'Username and Password are required'}), 400
@@ -57,8 +63,12 @@ def login_route():
         return jsonify({'error': 'Invalid username or password'}), 401
     
     salt = bytes.fromhex(user['salt'])
+    print(f"retrieved salt (login) {salt.hex()}")
     key = createKey(password, salt)
+    print(f"session key (login) {key}")
+
     session['key'] = key
+    print(f"session after login {session}" )
     return jsonify({'message': 'Login successful'}), 200
 
 @login_bp.route('/logout', methods=['POST'])
