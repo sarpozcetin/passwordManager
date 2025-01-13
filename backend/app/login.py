@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify, session
 from flask_bcrypt import Bcrypt
 import bcrypt
-from encrypt_decrypt import createKey
+from encrypt_decrypt import createKey, generate_salt
 import os
 
 login_bp = Blueprint('login_register', __name__)
@@ -11,6 +11,7 @@ bcrypt = Bcrypt()
 def register_route():
     from server import mongo #Inside function to avoid circular import errors
     data = request.get_json()
+    print(f"Session before register: {session}")
     print(data)
     username = data.get('username')
     password = data.get('password')
@@ -22,12 +23,9 @@ def register_route():
     if existing_user:
         return jsonify({'error': 'Username already taken. Please choose another.'}), 400
 
-    salt = os.urandom(16)
-    print(f"generated salt {salt}")
-
+    salt = generate_salt()
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-    print(f"hashed password {hashed_password}")
-    key = createKey(password, salt)
+    key = createKey(password.encode(), salt)
     print(f"session key (registration) {key}")
 
     mongo.db.users.insert_one({
@@ -35,8 +33,9 @@ def register_route():
         'hashed_master_password': hashed_password,
         'salt': salt.hex()
     })
-
     session['key'] = key
+    session['salt'] = salt
+    session.modified = True
     print(f"session after register {session}" )
 
     return jsonify({'message': 'User registered successfully'}), 201
@@ -63,11 +62,11 @@ def login_route():
         return jsonify({'error': 'Invalid username or password'}), 401
     
     salt = bytes.fromhex(user['salt'])
-    print(f"retrieved salt (login) {salt.hex()}")
-    key = createKey(password, salt)
+    key = createKey(password.encode(), salt)
     print(f"session key (login) {key}")
 
     session['key'] = key
+    session['salt'] = user['salt']
     print(f"session after login {session}" )
     return jsonify({'message': 'Login successful'}), 200
 

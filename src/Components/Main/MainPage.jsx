@@ -56,7 +56,7 @@ const MainPage = () => {
         username: encryptUsername,
         password: encryptPassword,
         account: encryptAccountName
-      });
+      }, {withCredentials: true});
 
       if (response.data.encrypted_password) {
         alert(`Encrypted Password: ${response.data.encrypted_password}`);
@@ -75,7 +75,7 @@ const MainPage = () => {
     try {
       const response = await axios.post('http://127.0.0.1:5000/api/decrypt', {
         account: decryptAccountName
-      });
+      }, {withCredentials:true});
 
       if (response.data.decrypted_password) {
         setDecryptedPassword(response.data.decrypted_password);

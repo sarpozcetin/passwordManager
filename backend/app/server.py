@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY')
 
 
-CORS(app, supports_credentials=True)
+CORS(app, supports_credentials=True, origins=['http://localhost:3000'], allow_headers="*")
 
 from encrypt_decrypt import crypt_bp
 from login import login_bp
@@ -18,6 +18,9 @@ from login import login_bp
 
 mongo_uri = os.getenv('MONGO_URI')
 app.config['MONGO_URI'] = mongo_uri
+app.config['SESSION_COOKIE_SECURE'] = False
+app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['SESSION_COOKIE_SAMESITE'] = 'None'
 mongo = PyMongo(app)
 
 if not mongo.cx:

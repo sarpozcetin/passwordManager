@@ -32,7 +32,7 @@ const RegisterPage = () => {
             const response = await axios.post('http://127.0.0.1:5000/auth/register', {
                 username,
                 password
-            });
+            }, {withCredentials: true});
 
             if (response.status === 201) {
                 alert('Registration successful');

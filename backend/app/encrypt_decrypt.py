@@ -12,7 +12,7 @@ crypt_bp = Blueprint('encrypt_decrypt', __name__)
 def generate_salt() -> bytes:
     return os.urandom(16)
 
-def createKey(pw: str, salt: bytes) -> bytes:
+def createKey(pw: bytes, salt: bytes) -> bytes:
 
     kdf = PBKDF2HMAC(algorithm=hashes.SHA256(),
                      length=32,
@@ -20,7 +20,7 @@ def createKey(pw: str, salt: bytes) -> bytes:
                      iterations=100000,
                      backend=default_backend)
     
-    derived_key = base64.urlsafe_b64encode(kdf.derive(pw.encode()))
+    derived_key = base64.urlsafe_b64encode(kdf.derive(pw))
     print(f"derived key {derived_key}")
     return derived_key
 
@@ -38,7 +38,7 @@ def decrypt(encrypted: bytes, key: bytes) -> str:
 def encrypt_route():
     from server import mongo
     data = request.get_json()
-    print(f"session at encrypt {session}" )
+    print(f"session before encrypt {session}" )
 
     print(data)
     print("Session key:", session.get('key'))
@@ -49,8 +49,9 @@ def encrypt_route():
     if not username or not password or not account:
         return jsonify({'error': 'Username, Password, and Account are required'}), 400
     
-    salt = generate_salt()
-    key = createKey(session.get('key'), salt)
+    key = session.get('key')
+    salt = bytes.fromhex(session.get('salt'))
+    print(f"session after encryption: {session}")
     encrypted = encrypt(password, key)
 
     mongo.db.accounts.insert_one({
@@ -81,8 +82,8 @@ def decrypt_route():
         return jsonify({'error': 'User not found'}), 404
 
     encrypted_password = base64.urlsafe_b64decode(account['encrypted_password'])
-    salt = bytes.fromhex(account['salt'])
-    key = createKey(session.get('key'), salt)
+    key = session.get('key')
+    salt = bytes.fromhex(session.get('salt'))
     
     try:
         decrypted = decrypt(encrypted_password, key)
