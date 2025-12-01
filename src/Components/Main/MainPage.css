@@ -1,207 +1,281 @@
+/* General CSS*/
 .main-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 30px;
+  box-sizing: border-box;
 }
 
-.box-container {
-    position: relative;
-    width: 1000px;
-    height: 500px;
-    overflow: hidden; 
-    margin: 20px 0;
-  }
-  
-.box{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 8px;
-    opacity: 0;
-    transition: opacity 0.5s ease, transform 0.5s ease;
+/*CSS for the unlock screen*/
+.unlock-screen {
+  justify-content: center;
+  background: rgba(0,0,0,0.05);
 }
 
-.form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
+.unlock-screen .box-container {
+  position: relative;
+  width: 1000px;
+  max-width: 90%;
+  height: 500px;
+  overflow: hidden;
+  margin: 20px auto;
 }
 
-/*Encrypt box styles*/
+/* CSS for the vault screen */
+.vault-screen {
+  justify-content: flex-start;
+  padding-top: 40px;
+}
+
+/* Glass box styles*/
+.box {
+  position: relative;
+  width: 100%;
+  padding: 40px;
+  background: transparent;
+  border: 2px solid rgba(0, 0, 0, .2);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(30px);
+}
+
 .encrypt {
-    background: transparent;
-    border: 2px solid rgba(0, 0, 0, .2);
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(30px);
-    align-items: center;
-    flex-direction: column;
+  max-width: 1000px;
+  margin: 0 auto 40px;
 }
 
-.encrypt .input-box {
-    position: relative;
-    width: 50%;
-    margin: 30px 0;
-    border-bottom: 2px solid rgba(0, 0, 0, 0.6);
-    padding-bottom: 15px;
+/* CSS for the vault header*/
+.vault-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 1000px;
+  max-width: 90%;
+  margin: 0 auto 30px;
+  color: rgb(0, 0, 0);
 }
 
-.encrypt button {
-    padding: 10px 20px;
-    font-size: 16px;
-    border: 1px solid #000;
-    background: #3d3d3d;
-    opacity: 70%;
-    color: rgb(255, 255, 255);
-    border: none;
-    outline: none;
-    border-radius: 40px;
-    font-size: 16px;
-    font-weight: 600;
-    margin-top: 10px;
-    cursor: pointer;
-    width: 25%;
-    transition: background-color 0.3s;
+.icon-plus {
+  margin-right: 0 8px -2px 0;
 }
 
-/*Decrypt box styles*/
-.decrypt {
-    background: transparent;
-    border: 2px solid rgba(0, 0, 0, .2);
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(30px);
-    align-items: center;
-    flex-direction: column;
+/* CSS styling for all forms and inputs */
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
-.decrypt .input-box {
-    position: relative;
-    width: 50%;
-    margin: 30px 0;
-    border-bottom: 2px solid rgba(0, 0, 0, 0.6);
-    padding-bottom: 15px;
+.input-box {
+  position: relative;
+  width: 60%;
+  max-width: 500px;
+  margin: 30px 0;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.6);
 }
 
-
-.decrypt .input-box_pw {
-    position: relative;
-    width: 50%;
-    margin: 30px 0;
-    padding-bottom: 15px;
+.input-box input {
+  width: 100%;
+  height: 50px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: #000;
+  padding: 0 40px 0 5px;
 }
 
-.decrypt button {
-    padding: 10px 20px;
-    font-size: 16px;
-    border: 1px solid #000;
-    background: #3d3d3d;
-    opacity: 70%;
-    color: rgb(255, 255, 255);
-    border: none;
-    outline: none;
-    border-radius: 40px;
-    font-size: 16px;
-    font-weight: 600;
-    margin-top: 10px;
-    width: 25%;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.input-box_pw .Password_display {
-    height: 125%;
-    background: transparent; 
-    border: 2px solid black;
-    padding: 10px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #000;
-    font-size: 16px;
-    font-weight: 600;
-    text-align: top;
-    overflow: hidden;
-    
-}
-
-
-/*Styles for input box */
 .input-box label {
-    position: absolute;
-    top: 50%;
-    left: 5px;
-    transform: translateY(-50%);
-    color: #000;
-    font-size: 1rem;
-    pointer-events: none;
-    transition: all 0.5s ease-in-out;
-    padding-bottom: 15px;
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-50%);
+  color: #000;
+  font-size: 1rem;
+  pointer-events: none;
+  transition: 0.5s;
 }
 
 input:focus ~ label,
 input:valid ~ label {
-    top: -30px;
-    font-size: 0.85rem;
-}
-
-.input-box input {
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    color: #000;
+  top: -10px;
+  font-size: 0.85rem;
 }
 
 .input-box .icon {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 16px;
-    cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  cursor: pointer;
+  color: #000;
 }
 
-/*Styles for buttons*/
-.toggle-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    border: 1px solid #000;
-    background: #3d3d3d;
-    opacity: 70%;
-    color: rgb(255, 255, 255);
-    border: none;
-    outline: none;
-    border-radius: 40px;
-    font-size: 16px;
-    font-weight: 600;
-    margin-top: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-   
-.toggle-button:hover {
-    background-color: #000000;
+/* CSS styling for all the buttons */
+.encrypt-button,
+.toggle-button,
+.cancel-button,
+.show-btn,
+.delete-btn,
+.copy-btn {
+  padding: 12px 30px;
+  background: #555555;
+  color: white;
+  border: none;
+  border-radius: 40px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  margin: 8px;
 }
 
-.visible {
-    opacity: 1;
-    transform: translateX(0); 
+.encrypt-button:hover,
+.toggle-button:hover,
+.cancel-button:hover,
+.delete-btn:hover,
+.show-btn:hover {
+  background: #000;
 }
-  
-.hidden {
-    opacity: 0;
-    transform: translateX(100%); 
+
+.copy-btn {
+  background: transparent;
+  padding: 8px;
+  font-size: 20px;
+  color: rgb(255, 0, 0);
 }
-  
+
+.form-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.signout-btn {
+  margin-top: 50px;
+}
+
+/* CSS styling for the list of accounts */
+.accounts-list {
+  width: 1000px;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.account-card {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 18px;
+  margin: 12px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.account-info {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.account-icon {
+  font-size: 28px;
+  color: rgb(0, 0, 0);
+}
+
+.account-name {
+  color: rgb(0, 0, 0);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.account-username {
+  color: #404040;
+  font-size: 14px;
+}
+
+.account-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.revealed-password {
+  color: rgb(255, 0, 0);
+  font-family: monospace;
+  letter-spacing: 1px;
+  font-size: 16px;
+}
+
+.show-btn {
+  background: #3d3d3d;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+.no-entries {
+  color: #aaa;
+  text-align: center;
+  margin-top: 80px;
+  font-size: 18px;
+}
+
+/* Animation for opening the add new user screen */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* CSS styling for adding a new user */
+.add-modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(1, 89, 108, 0.75);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-box {
+  position: relative;
+  width: 90%;
+  max-width: 520px;
+  padding: 36px;
+  border-radius: 20px;
+  overflow: hidden;
+  color: white;
+  animation: slideUp 0.4s ease-out;
+}
+
+.modal-box::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('../Assets/login_register.jpg');
+  background-size: cover;
+  background-position: center;
+  z-index: -2;
+}
+
+.modal-box::after {
+  content: '';
+  position: absolute;
+  inset: -0;
+  background: transparent;
+  backdrop-filter: blur(20px);
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  z-index: -1;
+}
