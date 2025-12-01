@@ -12,7 +12,7 @@ auth_bp = Blueprint('auth', __name__)
 #Register a new user in the system
 @auth_bp.route('/register', methods=['POST'])
 def register():
-    from server import mongo, bcrypt
+    from backend import mongo, bcrypt
     import os
 
     data = request.get_json()
@@ -44,7 +44,7 @@ def register():
 #Login existing users
 @auth_bp.route('/login', methods=['POST'])
 def login():
-    from server import mongo, bcrypt
+    from backend import mongo, bcrypt
     data = request.get_json()
     username = data.get('username')
     password = data.get('password')
@@ -69,7 +69,7 @@ def logout():
 #Gets the current user's salt after logging in
 @auth_bp.route('/salt', methods=['GET'])
 def salt():
-    from server import mongo
+    from backend import mongo
 
     if 'user_id' not in session:
         return jsonify({'error: Unauthorized'}), 401

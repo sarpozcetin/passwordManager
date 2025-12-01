@@ -12,7 +12,7 @@ vault_bp = Blueprint('vault', __name__)
 #Saves the encrypted password
 @vault_bp.route('/vault', methods=['POST'])
 def save_entry():
-    from server import mongo
+    from backend import mongo
 
     if 'user_id' not in session:
         return jsonify({'error': 'Unauthorized'}), 401
@@ -43,7 +43,7 @@ def save_entry():
 #Gets all the encrypted passwords for the user
 @vault_bp.route('/vault', methods=['GET'])
 def get_vault():
-    from server import mongo
+    from backend import mongo
 
     if 'user_id' not in session:
         return jsonify([]), 200
@@ -60,7 +60,7 @@ def get_vault():
 #Deletes an entry for the user
 @vault_bp.route('/vault/<entry_id>', methods=['DELETE'])
 def delete_entry(entry_id):
-    from server import mongo
+    from backend import mongo
 
     if 'user_id' not in session:
         return jsonify({'error': 'Unauthorized'}), 401
