@@ -4,6 +4,8 @@
 A password manager built with React, Python, and MongoDB.
 Provides a secure way to store and manage passwords
 
+**This is a portfolio project to demonstrate coding skills. Do not use for real passwords or sensitive data.**
+
 ### `npm start`
 
 Runs the app in the development mode.\
