@@ -1,36 +1,36 @@
+# server.py
+'''
+Main Flask application that initializes the app, extensions, CORS, MongoDB, and registers the blueprints
+'''
+
 from flask import Flask
 from flask_pymongo import PyMongo
+from flask_cors import CORS
+from flask_bcrypt import Bcrypt
 import os
 from dotenv import load_dotenv
-from flask_cors import CORS
 
 load_dotenv()
-app = Flask(__name__)
 
+app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY')
 
+# CORS Initialization for frontend to backend communication
+CORS(app, supports_credentials=True, origins=['http://localhost:3000'])
 
-CORS(app, supports_credentials=True, origins=['http://localhost:3000'], allow_headers="*")
-
-from encrypt_decrypt import crypt_bp
-from login import login_bp
-
-
-mongo_uri = os.getenv('MONGO_URI')
-app.config['MONGO_URI'] = mongo_uri
-app.config['SESSION_COOKIE_SECURE'] = False
-app.config['SESSION_COOKIE_HTTPONLY'] = True
-app.config['SESSION_COOKIE_SAMESITE'] = 'None'
+#MongoDB initialization
+app.config['MONGO_URI'] = os.getenv('MONGO_URI')  # ← ADD THIS LINE
 mongo = PyMongo(app)
 
-if not mongo.cx:
-    print("Failed to connect to MongoDV. Please check your connection")
-else:
-    print("MongoDB connected successfully")
+#password hashing
+bcrypt = Bcrypt(app)
 
+#Register the required blueprints
+from auth import auth_bp
+from vault import vault_bp
 
-app.register_blueprint(crypt_bp, url_prefix='/api')
-app.register_blueprint(login_bp, url_prefix='/auth')
+app.register_blueprint(auth_bp, url_prefix='/auth')
+app.register_blueprint(vault_bp, url_prefix='/api')
 
 if __name__ == '__main__':
     app.run(debug=True)
