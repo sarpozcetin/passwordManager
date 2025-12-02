@@ -34,8 +34,10 @@ end-to-end encrypted password vault built with Flask, React, and Web Crypto API.
  - CSS animations
 
 ---BACKEND---
-- Python Flask and Flask-PyMongo
+- Python + Flask
+- Flask-PyMongo
 - Flask-Bcrypt
+- Flask Sessions
 - Flask-CORS
 - MongoDB
 
